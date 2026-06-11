@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
   const cursor = document.getElementById('cursor');
-
   if (!cursor) return;
 
   let mouseX = 0;
@@ -11,6 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+
+    // 🔥 snap initial position so it doesn't start top-left
+    if (currentX === 0 && currentY === 0) {
+      currentX = mouseX;
+      currentY = mouseY;
+    }
   });
 
   function animate() {
