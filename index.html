@@ -4,11 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="/pfp.webp" rel="icon">
-<title>snow's bio</title>
-
+<title>snows bio</title>
 <meta name="title" content="snow's bio" />
 <meta name="description" content="snow's bio" />
+<meta name="keywords" content="unblocked games, unblocked, proxy, pr0xy, unbl0cked games, games, game, fnaf, minecraft, pr0xy, games unblocked, unbl0cked, fortnite, sizzle central, Solo Central, szvy, Solo Central games, savoy central, savoy, central games, savoy central games, unblocked gxmes, fun games, educational games, education, classroom6x, math games, unblocked games google sites, google sites, google sites unblocked games, html unblocked games, github unblocked games, school unblocked games, github games, school games, html games, free games, online games, coolfunscience, science games, math games, google sites, google sites games, games google sites, sitesgoogle games, games sitesgoogle, githubio games, github io games, szvy github games, szvycentral.pages.dev, szvycentral.netlify.app, szvycentral.vercel.app, tidym.vercel.app, subtoszvy, mathplayground, games unblocked, youtube unblocked, tiktok unblocked, youtube, tiktok, how to play unblocked games at school, games, online games, fortnite games unblocked, nowgg unblocked, nowgg alt links, nowgg, geforce now unblocked, geforcenow, geforce unblocked, geforcenow unblocked, geforce unblocked, play games, unblocked games for school, skibidi szvy">
 <meta name="theme-color" content="#0f0f0f">
+<meta name="msapplication-TileColor" content="#0f0f0f">
+<meta property="image" content="/pfp.webp">
+<meta property="og:image" content="/pfp.webp">
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,47 +19,77 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
 body {
     background: #080808;
-    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    font-family: 'Comfortaa', sans-serif;
     overflow: hidden;
-    height: 100vh;
 }
-
 #enter-screen {
     position: fixed;
     inset: 0;
+    z-index: 100;
     background: #080808;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 100;
     transition: opacity 0.7s ease;
 }
-
 #enter-screen span {
-    color: rgba(255,255,255,0.6);
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.5px;
+    user-select: none;
 }
-
+#enter-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
 #site {
     opacity: 0;
     transition: opacity 0.7s ease;
 }
-
 #site.visible {
     opacity: 1;
 }
-
 #particles-js {
     position: fixed;
     inset: 0;
     z-index: 0;
 }
-
+#player {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+#player-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+}
+#player-toggle {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s;
+    display: flex;
+    align-items: center;
+}
+#player-toggle:hover {
+    color: rgba(255,255,255,0.85);
+}
 #card-outer {
     position: fixed;
     inset: 0;
@@ -64,117 +97,215 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 10;
+    padding: 20px;
+    pointer-events: none;
 }
-
 #card {
-    width: 90%;
-    max-width: 700px;
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    max-height: calc(100svh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
     background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.09);
     border-radius: 20px;
-    padding: 30px;
+    padding: 30px 26px 26px;
     backdrop-filter: blur(18px);
-    text-align: center;
-    color: white;
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 24px 64px rgba(0,0,0,0.7);
     transform-style: preserve-3d;
+    will-change: transform;
+    text-align: center;
+    pointer-events: all;
 }
+#card::-webkit-scrollbar { display: none; }
 
+.avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 14px;
+}
 .avatar-placeholder {
-    width: 85px;
-    height: 85px;
+    width: 82px;
+    height: 82px;
     border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.15);
-    margin-bottom: 10px;
+    border: 2px solid rgba(255,255,255,0.12);
+    display: block;
+    object-fit: cover;
 }
-
+.status-dot {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #3ddc84;
+    border: 2px solid #080808;
+}
 .username {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 600;
+    color: #f0f0f0;
+    letter-spacing: -0.3px;
+    margin-bottom: 3px;
+    text-shadow: 0 0 12px #fff;
 }
-
 .handle {
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 15px;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.32);
+    margin-bottom: 6px;
 }
-
+.location {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 16px;
+}
+.location i {
+    font-size: 11px;
+}
+.badges {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+.badge {
+    font-size: 10.5px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid;
+    letter-spacing: 0.3px;
+}
+.badge.purple {
+    color: #c084fc;
+    border-color: rgba(192,132,252,0.25);
+    background: rgba(192,132,252,0.07);
+}
+.badge.blue {
+    color: #60a5fa;
+    border-color: rgba(96,165,250,0.25);
+    background: rgba(96,165,250,0.07);
+}
+.badge.green {
+    color: #4ade80;
+    border-color: rgba(74,222,128,0.25);
+    background: rgba(74,222,128,0.07);
+}
 .divider {
     height: 1px;
-    background: rgba(255,255,255,0.08);
-    margin: 15px 0;
-}
-
-.bio {
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    line-height: 1.6;
+    background: rgba(255,255,255,0.07);
     margin-bottom: 20px;
 }
-
 .socials {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
 }
-
-.socials a {
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
     color: rgba(255,255,255,0.7);
-    font-size: 26px;
-    transition: 0.2s;
+    font-size: 30px;
+    text-decoration: none;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+    cursor: pointer;
+    text-shadow: 0 0 6px rgba(255,255,255,0.6);
 }
-
-.socials a:hover {
-    transform: scale(1.1);
-    color: white;
+.social-btn svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
 }
-
-.footer {
+#tooltip {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    background: rgba(10,10,10,0.9);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.8);
     font-size: 11px;
-    color: rgba(255,255,255,0.25);
+    font-family: 'Inter', sans-serif;
+    padding: 5px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+    transform: translate(-50%, -100%);
+}
+.footer {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.16);
+    letter-spacing: 0.4px;
+}
+.footer a {
+    color: rgba(255,255,255,0.26);
+    text-decoration: none;
+}
+.footer a:hover {
+    color: rgba(255,255,255,0.5);
 }
 </style>
 </head>
 
 <body>
-
 <div id="enter-screen">
-    <span>click to enter</span>
+    <span>hi click to enter :P</span>
 </div>
 
 <div id="site">
     <div id="particles-js"></div>
+    <div id="tooltip"></div>
+
+    <div id="player">
+        <button id="player-toggle"><i class="fa-solid fa-pause"></i></button>
+        <div id="player-title">GREECE (feat. Drake)</div>
+    </div>
 
     <div id="card-outer">
         <div id="card">
 
-            <img class="avatar-placeholder" src="pfp.webp" />
+            <div class="avatar-wrap">
+                <img class="avatar-placeholder" src="pfp.webp" alt="avatar" />
+            </div>
 
             <div class="username">hi, im snow.</div>
             <div class="handle">@light.snow on Discord</div>
 
             <div class="divider"></div>
 
-            <div class="bio">
-                keyboard enjoyer • fps gamer • coder<br>
-                i build random sites and play way too many games<br>
-                dm me if you wanna play something
-            </div>
-
             <div class="socials">
-                <a href="https://roblox.com/users/4111484395/profile" target="_blank">
-                    <i class="fa-solid fa-gamepad"></i>
+                <a href="https://roblox.com/users/4111484395/profile" target="_blank" class="social-btn" data-tip="Roblox">
+                    <svg viewBox="0.16 0 23.68 24"><path d="M5.164 0L.16 18.928L18.836 24L23.84 5.072Z"/></svg>
                 </a>
-                <a href="https://discord.com/users/1453556642296627355" target="_blank">
+
+                <a href="https://discord.com/users/1453556642296627355" target="_blank" class="social-btn" data-tip="Discord">
                     <i class="fa-brands fa-discord"></i>
                 </a>
-                <a href="https://instagram.com/watermelon.cat398" target="_blank">
+
+                <a href="https://instagram.com/watermelon.cat398" target="_blank" class="social-btn" data-tip="Instagram">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://open.spotify.com/user/31m24mzkhxfjhvrgdv2t4blawyr4" target="_blank">
+
+                <a href="https://open.spotify.com/user/31m24mzkhxfjhvrgdv2t4blawyr4" target="_blank" class="social-btn" data-tip="Spotify">
                     <i class="fa-brands fa-spotify"></i>
                 </a>
             </div>
+
+            so if i wanted to put more shit instead of lyrics
 
             <div class="footer">
                 site by <a href="https://qatual.net" target="_blank">qatual</a>
@@ -195,35 +326,62 @@ audio.loop = true;
 
 enterScreen.addEventListener('click', () => {
     audio.play();
-    enterScreen.style.opacity = 0;
+    enterScreen.classList.add('fade-out');
     site.classList.add('visible');
-    setTimeout(() => enterScreen.remove(), 700);
+    setTimeout(() => enterScreen.remove(), 750);
+
+    particlesJS("particles-js", { /* config unchanged */ });
+}, { once: true });
+
+const toggle = document.getElementById('player-toggle');
+
+toggle.addEventListener('click', () => {
+    if (audio.paused) audio.play();
+    else audio.pause();
+});
+
+audio.addEventListener('play', () => {
+    toggle.innerHTML = '<i class="fa-solid fa-pause"></i>';
+});
+
+audio.addEventListener('pause', () => {
+    toggle.innerHTML = '<i class="fa-solid fa-play"></i>';
 });
 
 const card = document.getElementById('card');
 
 card.addEventListener('mousemove', (e) => {
     const rect = card.getBoundingClientRect();
-    const dx = (e.clientX - (rect.left + rect.width / 2)) / rect.width;
-    const dy = (e.clientY - (rect.top + rect.height / 2)) / rect.height;
+    const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+    const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
 
+    card.style.transition = 'transform 0.08s ease';
     card.style.transform =
-        `perspective(900px) rotateY(${dx * 10}deg) rotateX(${-dy * 10}deg) scale(1.02)`;
+        `perspective(900px) rotateY(${dx * 11}deg) rotateX(${-dy * 11}deg) scale3d(1.02, 1.02, 1.02)`;
 });
 
 card.addEventListener('mouseleave', () => {
+    card.style.transition = 'transform 0.5s ease';
     card.style.transform = '';
 });
 
-particlesJS("particles-js", {
-    particles: {
-        number: { value: 50 },
-        color: { value: "#ffffff" },
-        size: { value: 3 },
-        move: { enable: true, speed: 1 }
-    }
+const tooltip = document.getElementById('tooltip');
+
+document.querySelectorAll('.social-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+        tooltip.textContent = btn.dataset.tip;
+        tooltip.style.opacity = '1';
+    });
+
+    btn.addEventListener('mousemove', (e) => {
+        tooltip.style.left = e.clientX + 'px';
+        tooltip.style.top = (e.clientY - 12) + 'px';
+    });
+
+    btn.addEventListener('mouseleave', () => {
+        tooltip.style.opacity = '0';
+    });
 });
 </script>
-
 </body>
 </html>
