@@ -99,11 +99,7 @@
     .footer { font-size: 10.5px; color: rgba(255,255,255,0.16); letter-spacing: 0.4px; }
     .footer a { color: rgba(255,255,255,0.26); text-decoration: none; }
     .footer a:hover { color: rgba(255,255,255,0.5); }
-   body {
-  cursor: none;
-}
-
-.cursor-dot {
+   #cursor {
   position: fixed;
   width: 10px;
   height: 10px;
@@ -116,28 +112,14 @@
   z-index: 999999;
 }
 
-.cursor-flake {
-  position: fixed;
-  pointer-events: none;
-  color: white;
-  transform: translate(-50%, -50%);
-  z-index: 999998;
+/* hide default cursor everywhere INCLUDING links/buttons */
+* {
+  cursor: none !important;
 }
-
-@keyframes flake-fall {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(80px);
-  }
-}
+  
   </style>
 </head>
 <body>
-  <div id="cursor"></div>
 <div id="enter-screen">
   <span>hi click to enter :P</span>
 </div>
