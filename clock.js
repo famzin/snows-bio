@@ -1,4 +1,6 @@
+console.log("clock loaded");
 function updateClock() {
+  
   const now = new Date();
 
   const t = getTimeParts("Canada/Toronto");
