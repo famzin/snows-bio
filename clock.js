@@ -1,35 +1,53 @@
-console.log("clock loaded");
 function updateClock() {
-  
+  const timeEl = document.getElementById("time");
+  const dateEl = document.getElementById("date");
+  const tzEl = document.getElementById("tz");
+  const offsetEl = document.getElementById("offset");
+
+  // stop if elements aren't found (prevents crashes)
+  if (!timeEl || !dateEl || !tzEl || !offsetEl) return;
+
   const now = new Date();
 
-  const t = getTimeParts("Canada/Toronto");
+  // Toronto time
+  const toronto = new Date(
+    now.toLocaleString("en-US", { timeZone: "America/Toronto" })
+  );
 
-  const timeStr = `${String(t.hour).padStart(2,"0")}:${String(t.minute).padStart(2,"0")}:${String(t.second).padStart(2,"0")}`;
-  const dateStr = now.toDateString();
+  const time = toronto.toTimeString().split(" ")[0];
+  const date = toronto.toDateString();
 
-  document.getElementById("time").textContent = timeStr;
-  document.getElementById("date").textContent = dateStr;
-  document.getElementById("tz").textContent = "America/Toronto";
+  timeEl.textContent = time;
+  dateEl.textContent = date;
+  tzEl.textContent = "America/Toronto";
 
-  const localOffset = -now.getTimezoneOffset() / 60;
-  document.getElementById("offset").textContent =
-    `Your time: ${localOffset >= 0 ? "+" : ""}${localOffset}h`;
+  const local = new Date();
+  const diff = Math.round((local - now) / 3600000);
+  offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
 
-  // analog clock
-  const sec = t.second;
-  const min = t.minute;
-  const hr = t.hour % 12;
+  // analog clock hands (safe checks included)
+  const secHand = document.getElementById("s");
+  const minHand = document.getElementById("m");
+  const hourHand = document.getElementById("h");
 
-  document.getElementById("s").style.transform =
-    `translate(-50%, -100%) rotate(${sec * 6}deg)`;
+  if (secHand) {
+    secHand.style.transform =
+      `translate(-50%, -100%) rotate(${toronto.getSeconds() * 6}deg)`;
+  }
 
-  document.getElementById("m").style.transform =
-    `translate(-50%, -100%) rotate(${min * 6 + sec * 0.1}deg)`;
+  if (minHand) {
+    minHand.style.transform =
+      `translate(-50%, -100%) rotate(${toronto.getMinutes() * 6}deg)`;
+  }
 
-  document.getElementById("h").style.transform =
-    `translate(-50%, -100%) rotate(${hr * 30 + min * 0.5}deg)`;
+  if (hourHand) {
+    hourHand.style.transform =
+      `translate(-50%, -100%) rotate(${toronto.getHours() * 30}deg)`;
+  }
 }
 
-setInterval(updateClock, 1000);
-updateClock();
+// wait until HTML exists before starting
+document.addEventListener("DOMContentLoaded", () => {
+  updateClock();
+  setInterval(updateClock, 1000);
+});
