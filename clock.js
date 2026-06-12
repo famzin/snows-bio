@@ -1,31 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
-  function updateClock() {
-    const timeEl = document.getElementById("time");
-    const dateEl = document.getElementById("date");
-    const tzEl = document.getElementById("tz");
-    const offsetEl = document.getElementById("offset");
+function updateClock() {
+  const now = new Date();
 
-    // safety check (prevents crash)
-    if (!timeEl || !dateEl || !tzEl || !offsetEl) return;
+  const timeEl = document.getElementById("time");
+  const dateEl = document.getElementById("date");
+  const tzEl = document.getElementById("tz");
+  const offsetEl = document.getElementById("offset");
 
-    const now = new Date();
+  if (!timeEl || !dateEl || !tzEl || !offsetEl) return;
 
-    timeEl.textContent = now.toLocaleTimeString();
+  timeEl.textContent = now.toLocaleTimeString();
 
-    dateEl.textContent = now.toLocaleDateString(undefined, {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-    });
+  dateEl.textContent = now.toLocaleDateString(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
 
-    tzEl.textContent =
-      Intl.DateTimeFormat().resolvedOptions().timeZone;
+  tzEl.textContent =
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const diff = -now.getTimezoneOffset() / 60;
-    offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
-  }
+  const diff = -now.getTimezoneOffset() / 60;
+  offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
+}
 
-  updateClock();
-  setInterval(updateClock, 1000);
-});
+updateClock();
+setInterval(updateClock, 1000);
