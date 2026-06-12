@@ -1,23 +1,31 @@
-function updateClock() {
-  const now = new Date();
+document.addEventListener("DOMContentLoaded", () => {
+  function updateClock() {
+    const timeEl = document.getElementById("time");
+    const dateEl = document.getElementById("date");
+    const tzEl = document.getElementById("tz");
+    const offsetEl = document.getElementById("offset");
 
-  document.getElementById("time").textContent =
-    now.toLocaleTimeString();
+    // safety check (prevents crash)
+    if (!timeEl || !dateEl || !tzEl || !offsetEl) return;
 
-  document.getElementById("date").textContent =
-    now.toLocaleDateString(undefined, {
+    const now = new Date();
+
+    timeEl.textContent = now.toLocaleTimeString();
+
+    dateEl.textContent = now.toLocaleDateString(undefined, {
       weekday: "long",
       month: "long",
       day: "numeric",
       year: "numeric"
     });
 
-  document.getElementById("tz").textContent =
-    Intl.DateTimeFormat().resolvedOptions().timeZone;
+    tzEl.textContent =
+      Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  const offsetEl = document.getElementById("offset");
-  const local = new Date();
-  const diff = -local.getTimezoneOffset() / 60;
+    const diff = -now.getTimezoneOffset() / 60;
+    offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
+  }
 
-  offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
-}
+  updateClock();
+  setInterval(updateClock, 1000);
+});
