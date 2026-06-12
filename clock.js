@@ -1,7 +1,7 @@
 function updateClock() {
   const now = new Date();
 
-  const t = getTimeParts("America/Toronto");
+  const t = getTimeParts("Canada/Toronto");
 
   const timeStr = `${String(t.hour).padStart(2,"0")}:${String(t.minute).padStart(2,"0")}:${String(t.second).padStart(2,"0")}`;
   const dateStr = now.toDateString();
