@@ -218,9 +218,29 @@
   background: white;
 }
 
-.hand.hour { width: 2px; height: 14px; }
-.hand.min { width: 2px; height: 18px; opacity: 0.8; }
-.hand.sec { width: 1px; height: 20px; background: #ff4d6d; }
+.hand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 100%;
+  background: white;
+}
+    .hand.hour {
+  width: 2px;
+  height: 14px;
+}
+
+.hand.min {
+  width: 2px;
+  height: 18px;
+  opacity: 0.8;
+}
+
+.hand.sec {
+  width: 1px;
+  height: 20px;
+  background: #ff4d6d;
+}
   </style>
 </head>
 <body>
