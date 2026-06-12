@@ -1,46 +1,23 @@
-document.addEventListener("DOMContentLoaded", () => {
-  function updateClock() {
-    const ids = ["time", "date", "tz", "offset", "h", "m", "s"];
+function updateClock() {
+  const now = new Date();
 
-    const missing = ids.filter(id => !document.getElementById(id));
+  document.getElementById("time").textContent =
+    now.toLocaleTimeString();
 
-    if (missing.length > 0) {
-      console.log("Missing elements:", missing);
-      return;
-    }
+  document.getElementById("date").textContent =
+    now.toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    });
 
-    const timeEl = document.getElementById("time");
-    const dateEl = document.getElementById("date");
-    const tzEl = document.getElementById("tz");
-    const offsetEl = document.getElementById("offset");
+  document.getElementById("tz").textContent =
+    Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    const now = new Date();
+  const offsetEl = document.getElementById("offset");
+  const local = new Date();
+  const diff = -local.getTimezoneOffset() / 60;
 
-    const toronto = new Date(
-      now.toLocaleString("en-US", { timeZone: "America/Toronto" })
-    );
-
-    timeEl.textContent = toronto.toTimeString().split(" ")[0];
-    dateEl.textContent = toronto.toDateString();
-    tzEl.textContent = "America/Toronto";
-
-    const local = new Date();
-    const diff = Math.round((local - now) / 3600000);
-    offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
-
-    const sec = toronto.getSeconds();
-    const min = toronto.getMinutes();
-    const hr = toronto.getHours();
-
-    const s = document.getElementById("s");
-    const m = document.getElementById("m");
-    const h = document.getElementById("h");
-
-    if (s) s.style.transform = `translate(-50%, -100%) rotate(${sec * 6}deg)`;
-    if (m) m.style.transform = `translate(-50%, -100%) rotate(${min * 6}deg)`;
-    if (h) h.style.transform = `translate(-50%, -100%) rotate(${hr * 30}deg)`;
-  }
-
-  updateClock();
-  setInterval(updateClock, 1000);
-});
+  offsetEl.textContent = `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
+}
