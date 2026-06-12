@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+ 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
@@ -156,8 +157,7 @@
   font-size: 12px;
   color: rgba(255,255,255,0.4);
   text-align: center;
-}
-  
+} 
   </style>
 </head>
 <body>
@@ -221,8 +221,13 @@
 
 <div class="right-column">
     <div id="clock-time">00:00:00</div>
-  <div id="clock-date">Loading...</div>
-  <div id="clock-zone">Loading...</div>
+    <div id="clock-date">Loading...</div>
+    <div id="clock-zone">Loading...</div>
+
+    <div class="visitor-info">
+        <div id="visitor-time">Loading...</div>
+        <div id="visitor-zone">Loading...</div>
+    </div>
 </div>
 
 </div>
@@ -277,26 +282,62 @@
     btn.addEventListener('mousemove', (e) => { tipX = e.clientX; tipY = e.clientY; if (!rafId) rafId = requestAnimationFrame(animateTip); });
     btn.addEventListener('mouseleave', () => { tooltip.style.opacity = '0'; });
   });
+ 
+
+
   function updateClock() {
   const now = new Date();
 
-  document.getElementById("clock-time").textContent =
-    now.toLocaleTimeString();
+  // Toronto
+  const torontoTime = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(now);
 
-  document.getElementById("clock-date").textContent =
-    now.toLocaleDateString(undefined, {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-    });
+  const torontoDate = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  }).format(now);
 
+  // GMT offset for Toronto
+  const torontoOffset = new Intl.DateTimeFormat("en", {
+    timeZone: "America/Toronto",
+    timeZoneName: "shortOffset"
+  }).formatToParts(now)
+    .find(part => part.type === "timeZoneName")?.value || "";
+
+  document.getElementById("clock-time").textContent = torontoTime;
+  document.getElementById("clock-date").textContent = torontoDate;
   document.getElementById("clock-zone").textContent =
+    `Toronto · ${torontoOffset}`;
+
+  // Visitor
+  const visitorZone =
     Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  const visitorTime = new Intl.DateTimeFormat("en-CA", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(now);
+
+  document.getElementById("visitor-time").textContent =
+    `Your time: ${visitorTime}`;
+
+  document.getElementById("visitor-zone").textContent =
+    visitorZone;
 }
 
 updateClock();
 setInterval(updateClock, 1000);
+  
 </script>
   <script src="cursor.js"></script>
 </body>
