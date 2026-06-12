@@ -1,7 +1,7 @@
 function updateClock() {
   const now = new Date();
 
-  // Toronto time
+  
   const toronto = new Date(
     now.toLocaleString("en-US", { timeZone: "America/Toronto" })
   );
@@ -13,13 +13,11 @@ function updateClock() {
   document.getElementById("date").textContent = date;
   document.getElementById("tz").textContent = "America/Toronto";
 
-  // visitor offset
   const local = new Date();
   const diff = Math.round((local - now) / 3600000);
   document.getElementById("offset").textContent =
     `Your time: ${diff >= 0 ? "+" : ""}${diff}h`;
 
-  // analog clock
   const sec = toronto.getSeconds();
   const min = toronto.getMinutes();
   const hr = toronto.getHours();
