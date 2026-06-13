@@ -21,7 +21,9 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body { background: #080808; min-height: 100vh; font-family: 'Comfortaa', sans-serif;  }
+    body { background: #080808; min-height: 100vh; font-family: 'Comfortaa', sans-serif; overflow-y: auto; }
+        
+
 
     #enter-screen {
       position: fixed; inset: 0; z-index: 100; background: #080808;
@@ -53,19 +55,31 @@
     #player-toggle:hover { color: rgba(255,255,255,0.85); }
 
     #card-outer {
-      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-      z-index: 10; padding: 20px; pointer-events: none;
-    }
+    padding: 80px 20px 40px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
 
-    #card {
-      position: relative; width: 100%; max-width: 650px; max-height: calc(100svh - 40px);
-      overflow-y: auto; overflow-x: hidden; scrollbar-width: none;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px; padding: 30px 26px 26px;
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 24px 64px rgba(0,0,0,0.7);
-      transform-style: preserve-3d; will-change: transform; text-align: center; pointer-events: all;
-    }
+   #card {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    overflow: visible;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 20px;
+    padding: 30px 26px 26px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset,
+                0 24px 64px rgba(0,0,0,0.7);
+    transform-style: preserve-3d;
+    will-change: transform;
+    text-align: center;
+    pointer-events: all;
+}
     #card::-webkit-scrollbar { display: none; }
 
     .avatar-wrap { position: relative; display: inline-block; margin-bottom: 14px; }
@@ -191,16 +205,17 @@
   50% { transform: translateX(-50%) translateY(-6px); opacity: 1; }
 }
     #lyrics {
-  margin-top: 30px;
-  padding-top: 25px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+    max-width: 650px;
+    margin: 100px auto;
+    padding: 0 26px 100px;
 }
 
 .line {
-  color: rgba(255,255,255,0.75);
-  font-size: 15px;
-  line-height: 1.7;
-  margin-bottom: 18px;
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+    text-align: center;
 }
   </style>
 </head>
@@ -278,7 +293,10 @@
 
 
     </div>
-<div id="lyrics">
+
+</div>
+  </div>
+   <div id="lyrics">
     <div class="line">line 1</div>
     <div class="line">line 2</div>
     <div class="line">line 3</div>
@@ -296,8 +314,7 @@
     <div class="line">line 15</div>
 </div>
 </div>
-  </div>
-</div>
+ 
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
