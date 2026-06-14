@@ -21,7 +21,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body { background: #080808; min-height: 100vh; font-family: 'Comfortaa', sans-serif; overflow: hidden; }
+    body { background: #080808; min-height: 100vh; font-family: 'Comfortaa', sans-serif; overflow-y: auto; overflow-x:hidden }
 
     #enter-screen {
       position: fixed; inset: 0; z-index: 100; background: #080808;
@@ -53,19 +53,29 @@
     #player-toggle:hover { color: rgba(255,255,255,0.85); }
 
     #card-outer {
-      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-      z-index: 10; padding: 20px; pointer-events: none;
+       min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 40px 20px; position: relative; z-index: 10; pointer-events: none;
     }
 
-    #card {
-      position: relative; width: 100%; max-width: 650px; max-height: calc(100svh - 40px);
-      overflow-y: auto; overflow-x: hidden; scrollbar-width: none;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px; padding: 30px 26px 26px;
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 24px 64px rgba(0,0,0,0.7);
-      transform-style: preserve-3d; will-change: transform; text-align: center; pointer-events: all;
-    }
+   #card {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  overflow: visible;
+
+  /* KEEP everything below this */
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  padding: 30px 26px 26px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset,
+              0 24px 64px rgba(0,0,0,0.7);
+  transform-style: preserve-3d;
+  will-change: transform;
+  text-align: center;
+  pointer-events: all;
+}
     #card::-webkit-scrollbar { display: none; }
 
     .avatar-wrap { position: relative; display: inline-block; margin-bottom: 14px; }
@@ -190,6 +200,26 @@
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
   50% { transform: translateX(-50%) translateY(-6px); opacity: 1; }
 }
+    #about-section {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+
+  text-align: left;
+}
+
+#about-section h2 {
+  color: white;
+  font-size: 22px;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+#about-section p {
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
   </style>
 </head>
 <body>
@@ -264,7 +294,19 @@
 </div>
 
 </div>
+<div id="about-section">
+    <h2>about me</h2>
 
+    <p>
+        hey, i'm snow. i like keyboards, fps games,
+        and building random stuff.
+    </p>
+
+    <p>
+        you'll usually find me on discord,
+        listening to music, or working on projects.
+    </p>
+</div>
     </div>
   </div>
 </div>
