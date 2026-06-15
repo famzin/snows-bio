@@ -288,6 +288,17 @@
     cursor: pointer;
     box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
+   .slider-group {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.slider-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    display: block;
+    margin-bottom: 6px;
+} 
     
   </style>
 </head>
@@ -378,9 +389,17 @@
 <div id="music-player">
 
     <img id="music-cover" src="greece.webp" alt="Album Cover">
-  <input id="seek" type="range" min="0" max="100" value="0">
-<input id="volume" type="range" min="0" max="1" step="0.01">
+<div class="slider-group">
+    <span class="slider-label">Progress</span>
+    <input id="seek" type="range" min="0" max="100" value="0">
+</div>
 
+<div class="slider-group">
+    <span class="slider-label">
+        <i class="fa-solid fa-volume-high"></i> Volume
+    </span>
+    <input id="volume" type="range" min="0" max="1" step="0.01">
+</div>
     <div id="music-title">GREECE</div>
 
     <div id="music-artist">
