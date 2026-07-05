@@ -210,3 +210,11 @@ function loadLanyard() {
     }
   };
 }
+function updateStatus(data) {
+  const status = data.discord_status; // online/idle/dnd/offline
+
+  const el = document.querySelector(".status-dot");
+  if (!el) return;
+
+  el.className = "status-dot " + status;
+}
