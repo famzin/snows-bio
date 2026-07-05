@@ -44,3 +44,23 @@ window.addEventListener("load", () => {
     loadLanyard();
     renderPage();
 });
+function initIntro() {
+  const intro = document.getElementById("intro");
+  const app = document.getElementById("app");
+  const music = document.getElementById("bgMusic");
+
+  if (!intro || !app) return;
+
+  intro.addEventListener("click", () => {
+    intro.classList.add("out");
+    app.classList.add("visible");
+
+    // optional music start
+    if (music) {
+      music.volume = 0.4;
+      music.play().catch(() => {
+        // autoplay might be blocked — ignore error
+      });
+    }
+  });
+}
