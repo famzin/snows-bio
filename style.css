@@ -69,9 +69,14 @@ canvas#stars {
   transition: opacity 0.8s ease;
 }
 
+#app {
+  opacity: 0;
+  pointer-events: none;
+}
+
 #app.visible {
   opacity: 1;
-  pointer-events:none;
+  pointer-events: auto;
 }
 
 .card {
