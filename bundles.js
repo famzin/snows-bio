@@ -39,7 +39,25 @@ const config = {
 console.log("script loaded");
 window.addEventListener("load", () => {
     initStars();
-    initIntro();
+    function initIntro() {
+  const intro = document.getElementById("intro");
+  const app = document.getElementById("app");
+  const music = document.getElementById("bgMusic");
+
+  if (!intro || !app) return;
+
+  intro.addEventListener("click", () => {
+    intro.classList.add("out");
+    app.classList.add("visible");
+
+    if (music) {
+      music.volume = 0.4;
+      music.play().catch(err => {
+        console.log("music blocked:", err);
+      });
+    }
+  });
+}
     initNavigation();
     loadLanyard();
     renderPage();
@@ -54,7 +72,7 @@ function initIntro() {
   intro.addEventListener("click", () => {
     intro.classList.add("out");
     app.classList.add("visible");
-
+   console.log("intro init running");
     // optional music start
     if (music) {
       music.volume = 0.4;
