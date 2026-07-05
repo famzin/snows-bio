@@ -188,3 +188,25 @@ window.addEventListener("load", () => {
 
   if (typeof loadLanyard === "function") loadLanyard();
 });
+const DISCORD_ID = "1453556642296627355"; // your ID
+
+function loadLanyard() {
+  const ws = new WebSocket("wss://api.lanyard.rest/socket");
+
+  ws.onopen = () => {
+    ws.send(JSON.stringify({
+      op: 2,
+      d: {
+        subscribe_to_id: DISCORD_ID
+      }
+    }));
+  };
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data.op === 0) {
+      updateStatus(data.d);
+    }
+  };
+}
