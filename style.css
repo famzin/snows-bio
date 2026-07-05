@@ -440,3 +440,23 @@ canvas#stars {
   transform: translate(-50%, -50%);
   z-index: 999999;
 }
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.status-dot.online { background: #57f287; }
+.status-dot.idle { background: #faa81a; }
+.status-dot.dnd { background: #ed4245; }
+.status-dot.offline { background: #666; }
+
+.discord-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #aaa;
+}
