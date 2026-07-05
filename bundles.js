@@ -36,7 +36,7 @@ const config = {
         }
     ]
 };
-
+console.log("script loaded");
 window.addEventListener("load", () => {
     initStars();
     initIntro();
@@ -59,6 +59,7 @@ function initIntro() {
     if (music) {
       music.volume = 0.4;
       music.play().catch(() => {
+          console.log("intro init running");
         // autoplay might be blocked — ignore error
       });
     }
