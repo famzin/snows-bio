@@ -1,10 +1,6 @@
-// ================================
-// CONFIG
-// ================================
-
 const config = {
-    name: "Your Name",
-    handle: "@yourname",
+    name: "snow",
+    handle: "@sleepysnow.mp3",
     role: "Developer",
     avatar: "https://github.com/USERNAME.png",
 
@@ -20,9 +16,9 @@ const config = {
 
     projects: [
         {
-            name: "Portfolio",
-            description: "This website.",
-            url: "#",
+            name: "https://snows.rest",
+            description: "this website.",
+            url: "https://snows.rest",
             tags: ["HTML", "CSS", "JavaScript"]
         }
     ],
@@ -30,45 +26,21 @@ const config = {
     socials: [
         {
             label: "Discord",
-            handle: "yourdiscord",
-            url: "#"
+            handle: "@sleepysnow.mp3 on Discord",
+            url: "https://discord.com/users/1453556642296627355"
         },
         {
             label: "GitHub",
-            handle: "yourgithub",
-            url: "https://github.com/"
+            handle: "@snowy-xyz",
+            url: "https://github.com/snowy-xyz"
         }
     ]
 };
 
-// ================================
-// APP
-// ================================
-
-let activeTab = "home";
-let lanyardData = null;
-
-const tabs = [
-    "home",
-    "about",
-    "projects",
-    "socials"
-];
-
-// ================================
-// START
-// ================================
-
 window.addEventListener("load", () => {
-
     initStars();
-
     initIntro();
-
     initNavigation();
-
     loadLanyard();
-
     renderPage();
-
 });
