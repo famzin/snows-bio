@@ -44,7 +44,6 @@ function initStars() {
 
   const ctx = canvas.getContext("2d");
 
-  // resize helper
   function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -52,7 +51,6 @@ function initStars() {
   resize();
   window.addEventListener("resize", resize);
 
-  // create stars
   const stars = Array.from({ length: 120 }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -62,20 +60,16 @@ function initStars() {
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     ctx.fillStyle = "white";
 
     for (let star of stars) {
-      // move down
       star.y += star.speed;
 
-      // reset when off screen
       if (star.y > canvas.height) {
         star.y = 0;
         star.x = Math.random() * canvas.width;
       }
 
-      // draw star
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
       ctx.fill();
@@ -86,29 +80,26 @@ function initStars() {
 
   animate();
 }
+
 function initIntro() {
-    const intro = document.getElementById("intro");
-    const app = document.getElementById("app");
-    const music = document.getElementById("bgMusic");
+  const intro = document.getElementById("intro");
+  const app = document.getElementById("app");
+  const music = document.getElementById("bgMusic");
 
-    if (!intro || !app) return;
+  if (!intro || !app) return;
 
-    intro.addEventListener("click", () => {
-        intro.classList.add("out");
-        app.classList.add("visible");
+  intro.addEventListener("click", () => {
+    intro.classList.add("out");
+    app.classList.add("visible");
 
-        if (music) {
-            music.volume = 0.4;
-            music.play().catch(() => {});
-        }
-    });
+    if (music) {
+      music.volume = 0.4;
+      music.play().catch(() => {});
+    }
+  });
 }
 
-
-    initStars();
-    initIntro();
-
-   function initNavigation() {
+function initNavigation() {
   const tabs = document.querySelectorAll(".nav-tab");
   const content = document.getElementById("content");
 
@@ -133,10 +124,10 @@ function initIntro() {
     });
   });
 
-  // default page
   setActive("home");
 }
-    function renderTab(tab) {
+
+function renderTab(tab) {
   if (tab === "home") {
     return `
       <div class="items">
@@ -189,14 +180,11 @@ function initIntro() {
 
   return "";
 }
-    if (typeof loadLanyard === "function") loadLanyard();
-    if (typeof renderPage === "function") renderPage();
-});
+
 window.addEventListener("load", () => {
-    initStars();
-    initIntro();
+  initStars();
+  initIntro();
+  initNavigation();
 
-    initNavigation(); // ✅ THIS is what you're missing
-
-    if (typeof loadLanyard === "function") loadLanyard();
+  if (typeof loadLanyard === "function") loadLanyard();
 });
