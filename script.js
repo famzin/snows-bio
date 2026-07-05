@@ -206,15 +206,17 @@ function loadLanyard() {
     const data = JSON.parse(event.data);
 
     if (data.op === 0) {
-      updateStatus(data.d);
-    }
-  };
-}
-function updateStatus(data) {
-  const status = data.discord_status; // online/idle/dnd/offline
+     function updateStatus(data) {
+  const status = data.discord_status;
 
-  const el = document.querySelector(".status-dot");
-  if (!el) return;
+  const dot = document.querySelector(".status-dot");
+  const text = document.getElementById("statusText");
 
-  el.className = "status-dot " + status;
+  if (dot) {
+    dot.className = "status-dot " + status;
+  }
+
+  if (text) {
+    text.textContent = status;
+  }
 }
