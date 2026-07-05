@@ -5,7 +5,6 @@ const config = {
     avatar: "https://github.com/USERNAME.png",
 
     status: "online",
-
     visitors: 0,
 
     bio: [
@@ -36,79 +35,53 @@ const config = {
         }
     ]
 };
+
 console.log("script loaded");
-window.addEventListener("load", () => {
-    function initStars() {
-  const canvas = document.getElementById("stars");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  // simple fallback (no animation yet)
-  ctx.fillStyle = "white";
-  for (let i = 0; i < 50; i++) {
-    ctx.fillRect(
-      Math.random() * canvas.width,
-      Math.random() * canvas.height,
-      1,
-      1
-    );
-  }
-}
-   console.log("script loaded");
 
 function initStars() {
-  const canvas = document.getElementById("stars");
-  if (!canvas) return;
+    const canvas = document.getElementById("stars");
+    if (!canvas) return;
 
-  const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  ctx.fillStyle = "white";
+    ctx.fillStyle = "white";
 
-  for (let i = 0; i < 50; i++) {
-    ctx.fillRect(
-      Math.random() * canvas.width,
-      Math.random() * canvas.height,
-      1,
-      1
-    );
-  }
+    for (let i = 0; i < 50; i++) {
+        ctx.fillRect(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height,
+            1,
+            1
+        );
+    }
 }
 
 function initIntro() {
-  const intro = document.getElementById("intro");
-  const app = document.getElementById("app");
-  const music = document.getElementById("bgMusic");
+    const intro = document.getElementById("intro");
+    const app = document.getElementById("app");
+    const music = document.getElementById("bgMusic");
 
-  if (!intro || !app) return;
+    if (!intro || !app) return;
 
-  intro.addEventListener("click", () => {
-    intro.classList.add("out");
-    app.classList.add("visible");
+    intro.addEventListener("click", () => {
+        intro.classList.add("out");
+        app.classList.add("visible");
 
-    if (music) {
-      music.volume = 0.4;
-      music.play().catch(() => {});
-    }
-  });
+        if (music) {
+            music.volume = 0.4;
+            music.play().catch(() => {});
+        }
+    });
 }
 
 window.addEventListener("load", () => {
-  initStars();
-  initIntro();
+    initStars();
+    initIntro();
 
-  // ONLY keep these if they actually exist
-  if (typeof initNavigation === "function") initNavigation();
-  if (typeof loadLanyard === "function") loadLanyard();
-  if (typeof renderPage === "function") renderPage();
+    if (typeof initNavigation === "function") initNavigation();
+    if (typeof loadLanyard === "function") loadLanyard();
+    if (typeof renderPage === "function") renderPage();
 });
-      });
-    }
-  });
-}
