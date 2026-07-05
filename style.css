@@ -422,3 +422,15 @@ canvas#stars {
     padding: 18px;
   }
 }
+ #cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 10px rgba(255,255,255,0.6),
+              0 0 20px rgba(255,255,255,0.3);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 999999;
+}
