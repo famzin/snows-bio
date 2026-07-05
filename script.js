@@ -108,7 +108,34 @@ window.addEventListener("load", () => {
     initStars();
     initIntro();
 
-    if (typeof initNavigation === "function") initNavigation();
+   function initNavigation() {
+  const tabs = document.querySelectorAll(".nav-tab");
+  const content = document.getElementById("content");
+
+  if (!tabs.length || !content) return;
+
+  function setActive(tabName) {
+    tabs.forEach(t => {
+      t.classList.toggle("active", t.dataset.tab === tabName);
+    });
+
+    content.classList.add("fade");
+
+    setTimeout(() => {
+      content.innerHTML = renderTab(tabName);
+      content.classList.remove("fade");
+    }, 150);
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      setActive(tab.dataset.tab);
+    });
+  });
+
+  // default page
+  setActive("home");
+}
     if (typeof loadLanyard === "function") loadLanyard();
     if (typeof renderPage === "function") renderPage();
 });
