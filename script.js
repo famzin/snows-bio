@@ -136,6 +136,59 @@ window.addEventListener("load", () => {
   // default page
   setActive("home");
 }
+    function renderTab(tab) {
+  if (tab === "home") {
+    return `
+      <div class="items">
+        <div class="item item-bare">
+          <div>
+            <div class="item-name">${config.name}</div>
+            <div class="item-handle">${config.handle}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (tab === "about") {
+    return `
+      <div class="about-text">
+        ${config.bio.map(p => `<p>${p}</p>`).join("")}
+      </div>
+    `;
+  }
+
+  if (tab === "projects") {
+    return `
+      <div class="projects-list">
+        ${config.projects.map(p => `
+          <a class="project-item" href="${p.url}" target="_blank">
+            <div class="project-name">${p.name}</div>
+            <div class="project-desc">${p.description}</div>
+            <div class="project-tags">
+              ${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+            </div>
+          </a>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  if (tab === "socials") {
+    return `
+      <div class="socials-list">
+        ${config.socials.map(s => `
+          <a class="socials-link" href="${s.url}" target="_blank">
+            <span>${s.label}</span>
+            <span>${s.handle}</span>
+          </a>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  return "";
+}
     if (typeof loadLanyard === "function") loadLanyard();
     if (typeof renderPage === "function") renderPage();
 });
