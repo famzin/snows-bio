@@ -1,80 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Change these -->
-    <title>snows.rest</title>
-    <meta name="description" content="Personal Portfolio">
+  <title>snows.rest</title>
+  <meta name="description" content="Personal Portfolio">
 
-    <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Animated Background -->
-    <canvas id="stars"></canvas>
+  <canvas id="stars"></canvas>
 
-    <!-- Click to Enter -->
-    <div id="intro">
-        <span>click to enter</span>
-    </div>
+  <div id="intro">
+    <span>click to enter</span>
+  </div>
 
-    <!-- Main App -->
-    <main id="app">
+  <main id="app">
+    <div class="card">
 
-        <div class="card">
-
-            <!-- Navigation -->
-            <nav class="nav">
-
-                <div class="nav-tabs">
-                    <button class="nav-tab active" data-tab="home">
-                
-                    </button>
-
-                    <button class="nav-tab" data-tab="about">
-                     
-                    </button>
-
-                    <button class="nav-tab" data-tab="projects">
-                      
-                    </button>
-
-                    <button class="nav-tab" data-tab="socials">
-                
-                    </button>
-                </div>
-
-                <div class="nav-counter" id="visitorCounter">
-                    <!-- Filled by JavaScript -->
-                </div>
-
-            </nav>
-
-            <!-- Dynamic Content -->
-            <section class="content" id="content">
-
-                <!-- JavaScript loads everything here -->
-
-            </section>
-
+      <nav class="nav">
+        <div class="nav-tabs">
+          <button class="nav-tab active" data-tab="home">Home</button>
+          <button class="nav-tab" data-tab="about">About</button>
+          <button class="nav-tab" data-tab="projects">Projects</button>
+          <button class="nav-tab" data-tab="socials">Socials</button>
         </div>
 
-    </main>
+        <div class="nav-counter" id="visitorCounter"></div>
+      </nav>
 
-    <!-- Audio -->
-    <audio id="bgMusic" src="audio.mp3" preload="auto"></audio>
+      <section class="content" id="content"></section>
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    </div>
+  </main>
 
+  <audio id="bgMusic" src="audio.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
