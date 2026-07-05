@@ -58,29 +58,29 @@ window.addEventListener("load", () => {
     );
   }
 }
-    function initIntro() {
-  const intro = document.getElementById("intro");
-  const app = document.getElementById("app");
-  const music = document.getElementById("bgMusic");
+   console.log("script loaded");
 
-  if (!intro || !app) return;
+function initStars() {
+  const canvas = document.getElementById("stars");
+  if (!canvas) return;
 
-  intro.addEventListener("click", () => {
-    intro.classList.add("out");
-    app.classList.add("visible");
+  const ctx = canvas.getContext("2d");
 
-    if (music) {
-      music.volume = 0.4;
-      music.play().catch(err => {
-        console.log("music blocked:", err);
-      });
-    }
-  });
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  ctx.fillStyle = "white";
+
+  for (let i = 0; i < 50; i++) {
+    ctx.fillRect(
+      Math.random() * canvas.width,
+      Math.random() * canvas.height,
+      1,
+      1
+    );
+  }
 }
-    initNavigation();
-    loadLanyard();
-    renderPage();
-});
+
 function initIntro() {
   const intro = document.getElementById("intro");
   const app = document.getElementById("app");
@@ -91,13 +91,23 @@ function initIntro() {
   intro.addEventListener("click", () => {
     intro.classList.add("out");
     app.classList.add("visible");
-   console.log("intro init running");
-    // optional music start
+
     if (music) {
       music.volume = 0.4;
-      music.play().catch(() => {
-          console.log("intro init running");
-        // autoplay might be blocked — ignore error
+      music.play().catch(() => {});
+    }
+  });
+}
+
+window.addEventListener("load", () => {
+  initStars();
+  initIntro();
+
+  // ONLY keep these if they actually exist
+  if (typeof initNavigation === "function") initNavigation();
+  if (typeof loadLanyard === "function") loadLanyard();
+  if (typeof renderPage === "function") renderPage();
+});
       });
     }
   });
