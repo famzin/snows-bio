@@ -38,7 +38,26 @@ const config = {
 };
 console.log("script loaded");
 window.addEventListener("load", () => {
-    initStars();
+    function initStars() {
+  const canvas = document.getElementById("stars");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // simple fallback (no animation yet)
+  ctx.fillStyle = "white";
+  for (let i = 0; i < 50; i++) {
+    ctx.fillRect(
+      Math.random() * canvas.width,
+      Math.random() * canvas.height,
+      1,
+      1
+    );
+  }
+}
     function initIntro() {
   const intro = document.getElementById("intro");
   const app = document.getElementById("app");
