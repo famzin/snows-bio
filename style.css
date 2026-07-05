@@ -71,6 +71,7 @@ canvas#stars {
 
 #app.visible {
   opacity: 1;
+  pointer-events:none;
 }
 
 .card {
