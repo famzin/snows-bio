@@ -104,7 +104,7 @@ function initIntro() {
     });
 }
 
-window.addEventListener("load", () => {
+
     initStars();
     initIntro();
 
@@ -191,4 +191,12 @@ window.addEventListener("load", () => {
 }
     if (typeof loadLanyard === "function") loadLanyard();
     if (typeof renderPage === "function") renderPage();
+});
+window.addEventListener("load", () => {
+    initStars();
+    initIntro();
+
+    initNavigation(); // ✅ THIS is what you're missing
+
+    if (typeof loadLanyard === "function") loadLanyard();
 });
