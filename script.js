@@ -189,7 +189,6 @@ window.addEventListener("load", () => {
  const DISCORD_ID = "1453556642296627355";
 
 
-
 function loadLanyard() {
   const ws = new WebSocket("wss://api.lanyard.rest/socket");
 
@@ -201,6 +200,38 @@ function loadLanyard() {
       }
     }));
   };
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log("Lanyard data:", data);
+
+    if (data.op === 0) {
+      updateStatus(data.d);
+    }
+  };
+}
+
+function updateStatus(data) {
+  const status = data.discord_status;
+
+  const dot = document.querySelector(".status-dot");
+  const text = document.getElementById("statusText");
+
+  if (dot) dot.className = "status-dot " + status;
+  if (text) text.textContent = status;
+
+  const activityText = document.getElementById("activityText");
+  const activity = data.activities?.find(a => a.type === 0);
+
+  if (activityText) {
+    activityText.textContent = activity
+      ? `Playing ${activity.name}`
+      : "No activity";
+  }
+}
+
+// Start Lanyard
+loadLanyard();
 
   ws.onmessage = (event) => {
     const data = JSON.parse(event.data);
