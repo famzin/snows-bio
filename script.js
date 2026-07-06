@@ -188,7 +188,7 @@ window.addEventListener("load", () => {
 
  const DISCORD_ID = "1453556642296627355";
 
-const DISCORD_ID = "1453556642296627355";
+
 
 function loadLanyard() {
   const ws = new WebSocket("wss://api.lanyard.rest/socket");
