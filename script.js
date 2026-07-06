@@ -344,16 +344,16 @@ function loadLanyard() {
     }));
   };
 
-  ws.onmessage = (event) => {
-    const packet = JSON.parse(event.data);
+ws.onmessage = (event) => {
+  const packet = JSON.parse(event.data);
 
-    // Heartbeat
-    if (packet.op === 1) {
-      setInterval(() => {
-        ws.send(JSON.stringify({ op: 3 }));
-      }, packet.d.heartbeat_interval);
-      return;
-    }
+  console.log("PACKET:", packet);
+
+  if (packet.op === 0) {
+    console.log("DATA:", packet.d);
+    updateStatus(packet.d);
+  }
+};
 
     // Presence update
     if (packet.op === 0) {
