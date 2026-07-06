@@ -5,14 +5,13 @@
 const config = {
   name: "snow",
   handle: "https.snows.rest",
-  role: "Developer",
+  role: "casual person on the internet",
 
-  avatar: "https://github.com/USERNAME.png",
+  avatar: "https://discord.com/1453556642296627355",
 
   bio: [
-    "Write something about yourself.",
-    "You can have multiple paragraphs.",
-    "Everything here is editable."
+    "hi, im snow nice to meet you.",
+    "i really like gaming, piano, keyboards and sleeping ",
   ],
 
   projects: [
@@ -354,12 +353,6 @@ ws.onmessage = (event) => {
     updateStatus(packet.d);
   }
 };
-
-    // Presence update
-    if (packet.op === 0) {
-      updateStatus(packet.d);
-    }
-  };
 
   ws.onerror = (e) => console.error("Lanyard error:", e);
   ws.onclose = () => console.log("Lanyard disconnected");
