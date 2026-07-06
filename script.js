@@ -223,3 +223,4 @@ function updateStatus(data) {
     text.textContent = status;
   }
 }
+    });
