@@ -238,4 +238,4 @@ ws.onmessage = (event) => {
   if (data.op === 0) {
     updateStatus(data.d);
   }
-};
+});
