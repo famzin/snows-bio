@@ -366,6 +366,8 @@ function loadLanyard() {
 }
 
 function updateStatus(data) {
+console.log(data);
+  
   const dot = document.querySelector(".status-dot");
   const statusText = document.getElementById("statusText");
   const activityText = document.getElementById("activityText");
@@ -379,7 +381,7 @@ function updateStatus(data) {
   }
 
   if (activityText) {
-    const activity = data.activities.find(a => a.type === 0);
+    const activity = (data.activities || []).find(a => a.type === 0);
 
     if (activity) {
       activityText.textContent = `🎮 Playing ${activity.name}`;
