@@ -186,9 +186,7 @@ window.addEventListener("load", () => {
   initIntro();
   initNavigation();
 
-  if (typeof loadLanyard === "function") loadLanyard();
-});
-const DISCORD_ID = "1453556642296627355"; // your ID
+ const DISCORD_ID = "1453556642296627355";
 
 function loadLanyard() {
   const ws = new WebSocket("wss://api.lanyard.rest/socket");
@@ -206,7 +204,12 @@ function loadLanyard() {
     const data = JSON.parse(event.data);
 
     if (data.op === 0) {
-     function updateStatus(data) {
+      updateStatus(data.d);
+    }
+  };
+}
+
+function updateStatus(data) {
   const status = data.discord_status;
 
   const dot = document.querySelector(".status-dot");
