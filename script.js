@@ -4,7 +4,7 @@
 
 const config = {
   name: "snow",
-  handle: "@sleepysnow.mp3",
+  handle: "https.snows.rest",
   role: "Developer",
 
   avatar: "https://github.com/USERNAME.png",
@@ -380,18 +380,19 @@ console.log(data);
     statusText.textContent = data.discord_status;
   }
 
-  if (activityText) {
-    const activity = (data.activities || []).find(a => a.type === 0);
+const activities = data.activities || [];
+const activity = activities.find(a => a.type === 0);
 
-    if (activity) {
-      activityText.textContent = `🎮 Playing ${activity.name}`;
-    } else if (data.listening_to_spotify) {
-      activityText.textContent =
-        `🎵 ${data.spotify.song} — ${data.spotify.artist}`;
-    } else {
-      activityText.textContent = "Nothing right now";
-    }
+if (activityText) {
+  if (activity) {
+    activityText.textContent = `Playing ${activity.name}`;
+  } else if (data.listening_to_spotify && data.spotify) {
+    activityText.textContent =
+      `🎵 ${data.spotify.song} — ${data.spotify.artist}`;
+  } else {
+    activityText.textContent = "Online";
   }
+}
 
   console.log("Discord:", data);
 }
