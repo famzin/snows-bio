@@ -262,11 +262,7 @@ function updateStatus(data) {
       : "No activity";
   }
 }
-ws.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  console.log("Lanyard data:", data); // 🔥 add this
 
-  if (data.op === 0) {
-    updateStatus(data.d);
-  }
+loadLanyard();
+
 });
