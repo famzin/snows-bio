@@ -225,4 +225,4 @@ function loadLanyard() {
       activityText.textContent = "";
     }
   }
-}));
+});
