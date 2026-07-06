@@ -204,23 +204,25 @@ function loadLanyard() {
     const data = JSON.parse(event.data);
 
     if (data.op === 0) {
-      updateStatus(data.d);
-    }
-  };
-}
-
-function updateStatus(data) {
+      function updateStatus(data) {
   const status = data.discord_status;
 
   const dot = document.querySelector(".status-dot");
   const text = document.getElementById("statusText");
 
-  if (dot) {
-    dot.className = "status-dot " + status;
-  }
+  if (dot) dot.className = "status-dot " + status;
+  if (text) text.textContent = status;
 
-  if (text) {
-    text.textContent = status;
+  // 🔥 ACTIVITY (THIS IS WHAT YOU'RE MISSING)
+  const activityText = document.getElementById("activityText");
+
+  const activity = data.activities?.find(a => a.type === 0);
+
+  if (activityText) {
+    if (activity) {
+      activityText.textContent = `Playing ${activity.name}`;
+    } else {
+      activityText.textContent = "";
+    }
   }
-}
-    });
+}));
