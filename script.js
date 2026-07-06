@@ -1,44 +1,49 @@
+// =========================
+// CONFIG
+// =========================
+
 const config = {
-    name: "snow",
-    handle: "@sleepysnow.mp3",
-    role: "Developer",
-    avatar: "https://github.com/USERNAME.png",
+  name: "snow",
+  handle: "@sleepysnow.mp3",
+  role: "Developer",
 
-    status: "online",
-    visitors: 0,
+  avatar: "https://github.com/USERNAME.png",
 
-    bio: [
-        "Write something about yourself.",
-        "You can have multiple paragraphs.",
-        "Everything here is editable."
-    ],
+  bio: [
+    "Write something about yourself.",
+    "You can have multiple paragraphs.",
+    "Everything here is editable."
+  ],
 
-    projects: [
-        {
-            name: "https://snows.rest",
-            description: "this website.",
-            url: "https://snows.rest",
-            tags: ["HTML", "CSS", "JavaScript"]
-        }
-    ],
+  projects: [
+    {
+      name: "snows.rest",
+      description: "this website.",
+      url: "https://snows.rest",
+      tags: ["HTML", "CSS", "JavaScript"]
+    }
+  ],
 
-    socials: [
-        {
-            label: "Discord",
-            handle: "@sleepysnow.mp3 on Discord",
-            url: "https://discord.com/users/1453556642296627355"
-        },
-        {
-            label: "GitHub",
-            handle: "@snowy-xyz",
-            url: "https://github.com/snowy-xyz"
-        }
-    ]
+  socials: [
+    {
+      label: "Discord",
+      handle: "@sleepysnow.mp3",
+      url: "https://discord.com/users/1453556642296627355"
+    },
+    {
+      label: "GitHub",
+      handle: "@snowy-xyz",
+      url: "https://github.com/snowy-xyz"
+    }
+  ]
 };
 
-console.log("script loaded");
+// =========================
+// STAR BACKGROUND
+// =========================
 
 function initStars() {
+
   const canvas = document.getElementById("stars");
   if (!canvas) return;
 
@@ -48,21 +53,32 @@ function initStars() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
+
   resize();
+
   window.addEventListener("resize", resize);
 
-  const stars = Array.from({ length: 120 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 1.5,
-    speed: Math.random() * 0.4 + 0.1
-  }));
+  const stars = [];
+
+  for (let i = 0; i < 150; i++) {
+
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 1.6 + 0.3,
+      speed: Math.random() * 0.45 + 0.1
+    });
+
+  }
 
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
 
-    for (let star of stars) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#ffffff";
+
+    for (const star of stars) {
+
       star.y += star.speed;
 
       if (star.y > canvas.height) {
@@ -71,17 +87,31 @@ function initStars() {
       }
 
       ctx.beginPath();
-      ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+      ctx.arc(
+        star.x,
+        star.y,
+        star.radius,
+        0,
+        Math.PI * 2
+      );
       ctx.fill();
+
     }
 
     requestAnimationFrame(animate);
+
   }
 
   animate();
+
 }
 
+// =========================
+// INTRO
+// =========================
+
 function initIntro() {
+
   const intro = document.getElementById("intro");
   const app = document.getElementById("app");
   const music = document.getElementById("bgMusic");
@@ -89,105 +119,218 @@ function initIntro() {
   if (!intro || !app) return;
 
   intro.addEventListener("click", () => {
+
     intro.classList.add("out");
+
     app.classList.add("visible");
 
     if (music) {
+
       music.volume = 0.4;
+
       music.play().catch(() => {});
+
     }
+
   });
+
 }
+// =========================
+// NAVIGATION
+// =========================
 
 function initNavigation() {
+
   const tabs = document.querySelectorAll(".nav-tab");
   const content = document.getElementById("content");
 
   if (!tabs.length || !content) return;
 
-  function setActive(tabName) {
-    tabs.forEach(t => {
-      t.classList.toggle("active", t.dataset.tab === tabName);
+  function setActive(tab) {
+
+    tabs.forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.tab === tab
+      );
+
     });
 
     content.classList.add("fade");
 
     setTimeout(() => {
-      content.innerHTML = renderTab(tabName);
+
+      content.innerHTML = renderTab(tab);
+
       content.classList.remove("fade");
+
+      // Reload Discord card whenever Home is opened
+      if (tab === "home") {
+        loadLanyard();
+      }
+
     }, 150);
+
   }
 
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      setActive(tab.dataset.tab);
+  tabs.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      setActive(button.dataset.tab);
+
     });
+
   });
 
   setActive("home");
+
 }
 
+// =========================
+// PAGE RENDERING
+// =========================
+
 function renderTab(tab) {
+
   if (tab === "home") {
+
     return `
       <div class="items">
+
         <div class="item item-bare">
-          <div>
-            <div class="item-name">${config.name}</div>
-            <div class="item-handle">${config.handle}</div>
+
+          <div class="item-avatar-wrap">
+
+            <img
+              class="item-avatar"
+              src="${config.avatar}"
+              alt="Avatar"
+            >
+
+            <span class="status-dot offline"></span>
+
           </div>
+
+          <div>
+
+            <div class="item-name">
+              ${config.name}
+            </div>
+
+            <div class="item-handle">
+              ${config.handle}
+            </div>
+
+            <div
+              id="statusText"
+              class="item-sub"
+            >
+              offline
+            </div>
+
+            <div
+              id="activityText"
+              class="item-sub"
+            >
+            </div>
+
+          </div>
+
         </div>
+
       </div>
     `;
+
   }
 
   if (tab === "about") {
+
     return `
       <div class="about-text">
-        ${config.bio.map(p => `<p>${p}</p>`).join("")}
+        ${config.bio
+          .map(text => `<p>${text}</p>`)
+          .join("")}
       </div>
     `;
+
   }
 
   if (tab === "projects") {
+
     return `
       <div class="projects-list">
-        ${config.projects.map(p => `
-          <a class="project-item" href="${p.url}" target="_blank">
-            <div class="project-name">${p.name}</div>
-            <div class="project-desc">${p.description}</div>
-            <div class="project-tags">
-              ${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}
-            </div>
-          </a>
-        `).join("")}
+
+      ${config.projects.map(project => `
+
+        <a
+          class="project-item"
+          href="${project.url}"
+          target="_blank"
+        >
+
+          <div class="project-name">
+            ${project.name}
+          </div>
+
+          <div class="project-desc">
+            ${project.description}
+          </div>
+
+          <div class="project-tags">
+
+            ${project.tags
+              .map(tag =>
+                `<span class="tag">${tag}</span>`
+              )
+              .join("")}
+
+          </div>
+
+        </a>
+
+      `).join("")}
+
       </div>
     `;
+
   }
 
   if (tab === "socials") {
+
     return `
       <div class="socials-list">
-        ${config.socials.map(s => `
-          <a class="socials-link" href="${s.url}" target="_blank">
-            <span>${s.label}</span>
-            <span>${s.handle}</span>
-          </a>
-        `).join("")}
+
+      ${config.socials.map(social => `
+
+        <a
+          class="socials-link"
+          href="${social.url}"
+          target="_blank"
+        >
+
+          <span>${social.label}</span>
+
+          <span>${social.handle}</span>
+
+        </a>
+
+      `).join("")}
+
       </div>
     `;
+
   }
 
   return "";
+
 }
+// =========================
+// LANYARD (Discord Status)
+// =========================
 
-window.addEventListener("load", () => {
-  initStars();
-  initIntro();
-  initNavigation();
-
- const DISCORD_ID = "1453556642296627355";
-
+const DISCORD_ID = "1453556642296627355";
 
 function loadLanyard() {
   const ws = new WebSocket("wss://api.lanyard.rest/socket");
@@ -202,67 +345,62 @@ function loadLanyard() {
   };
 
   ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    console.log("Lanyard data:", data);
+    const packet = JSON.parse(event.data);
 
-    if (data.op === 0) {
-      updateStatus(data.d);
+    // Heartbeat
+    if (packet.op === 1) {
+      setInterval(() => {
+        ws.send(JSON.stringify({ op: 3 }));
+      }, packet.d.heartbeat_interval);
+      return;
+    }
+
+    // Presence update
+    if (packet.op === 0) {
+      updateStatus(packet.d);
     }
   };
+
+  ws.onerror = (e) => console.error("Lanyard error:", e);
+  ws.onclose = () => console.log("Lanyard disconnected");
 }
 
 function updateStatus(data) {
-  const status = data.discord_status;
-
   const dot = document.querySelector(".status-dot");
-  const text = document.getElementById("statusText");
-
-  if (dot) dot.className = "status-dot " + status;
-  if (text) text.textContent = status;
-
+  const statusText = document.getElementById("statusText");
   const activityText = document.getElementById("activityText");
-  const activity = data.activities?.find(a => a.type === 0);
+
+  if (dot) {
+    dot.className = "status-dot " + data.discord_status;
+  }
+
+  if (statusText) {
+    statusText.textContent = data.discord_status;
+  }
 
   if (activityText) {
-    activityText.textContent = activity
-      ? `Playing ${activity.name}`
-      : "No activity";
-  }
-}
+    const activity = data.activities.find(a => a.type === 0);
 
-// Start Lanyard
-loadLanyard();
-
-  ws.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-
-    console.log("Lanyard data:", data);
-
-    if (data.op === 0) {
-      updateStatus(data.d);
+    if (activity) {
+      activityText.textContent = `🎮 Playing ${activity.name}`;
+    } else if (data.listening_to_spotify) {
+      activityText.textContent =
+        `🎵 ${data.spotify.song} — ${data.spotify.artist}`;
+    } else {
+      activityText.textContent = "Nothing right now";
     }
-  };
-}
-
-function updateStatus(data) {
-  const status = data.discord_status;
-
-  const dot = document.querySelector(".status-dot");
-  const text = document.getElementById("statusText");
-
-  if (dot) dot.className = "status-dot " + status;
-  if (text) text.textContent = status;
-
-  const activityText = document.getElementById("activityText");
-  const activity = data.activities?.find(a => a.type === 0);
-
-  if (activityText) {
-    activityText.textContent = activity
-      ? `Playing ${activity.name}`
-      : "No activity";
   }
+
+  console.log("Discord:", data);
 }
 
-loadLanyard();
+// =========================
+// START EVERYTHING
+// =========================
 
+window.addEventListener("load", () => {
+  initStars();
+  initIntro();
+  initNavigation();
+  loadLanyard();
 });
