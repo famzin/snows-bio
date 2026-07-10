@@ -138,34 +138,18 @@ function initIntro() {
 // NAVIGATION
 // =========================
 
-function initNavigation() {
+setTimeout(() => {
 
-  const tabs = document.querySelectorAll(".nav-tab");
-  const content = document.getElementById("content");
+  content.innerHTML = renderTab(tab);
 
-  if (!tabs.length || !content) return;
+  content.classList.remove("fade");
+latestDiscordData = data;
+  // Restore Discord status when returning to Home
+  if (tab === "home" && latestDiscordData) {
+    updateStatus(latestDiscordData);
+  }
 
-  function setActive(tab) {
-
-    tabs.forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.tab === tab
-      );
-
-    });
-
-    content.classList.add("fade");
-
-    setTimeout(() => {
-
-      content.innerHTML = renderTab(tab);
-
-      content.classList.remove("fade");
-
-    }, 150);
-
+}, 150);
   }
 
   tabs.forEach(button => {
@@ -323,7 +307,7 @@ function renderTab(tab) {
 // =========================
 // LANYARD (Discord Status)
 // =========================
-
+let latestDiscordData = null;
 const DISCORD_ID = "1453556642296627355";
 
 function loadLanyard() {
