@@ -150,7 +150,7 @@ latestDiscordData = data;
   }
 
 }, 150);
-  }
+  
 
   tabs.forEach(button => {
 
