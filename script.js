@@ -369,22 +369,26 @@ console.log(data);
     dot.className = "status-dot " + data.discord_status;
   }
 
-  if (statusText) {
-    statusText.textContent = data.discord_status;
-  }
+const pretty = {
+  online: "Online",
+  idle: "Idle",
+  dnd: "Do Not Disturb",
+  offline: "Offline"
+};
+
+statusText.textContent = pretty[data.discord_status] || data.discord_status;
 
 const activities = data.activities || [];
 const activity = activities.find(a => a.type === 0);
 
-if (activityText) {
-  if (activity) {
-    activityText.textContent = `Playing ${activity.name}`;
-  } else if (data.listening_to_spotify && data.spotify) {
-    activityText.textContent =
-      `🎵 ${data.spotify.song} — ${data.spotify.artist}`;
-  } else {
-    activityText.textContent = "Online";
-  }
+if (activity) {
+  activityText.textContent = `🎮 ${activity.name}`;
+} else if (data.listening_to_spotify && data.spotify) {
+  activityText.textContent =
+    `🎵 ${data.spotify.song} — ${data.spotify.artist}`;
+} else {
+  activityText.textContent = "";
+}
 }
 
   console.log("Discord:", data);
