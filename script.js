@@ -332,8 +332,9 @@ function renderTab(tab) {
 const DISCORD_ID = "1453556642296627355";
 
 function loadLanyard() {
-  const ws = new WebSocket("wss://api.lanyard.rest/socket");
+  console.log("connecting...");
 
+  const ws = new WebSocket("wss://api.lanyard.rest/socket");
   ws.onopen = () => {
     ws.send(JSON.stringify({
       op: 2,
@@ -395,4 +396,15 @@ function updateStatus(data) {
   }
 
   console.log("Discord:", data);
+  console.log("loaded");
 }
+// =========================
+// START EVERYTHING
+// =========================
+
+window.addEventListener("load", () => {
+  initStars();
+  initIntro();
+  initNavigation();
+  loadLanyard();
+});
