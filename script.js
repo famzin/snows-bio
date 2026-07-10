@@ -7,7 +7,7 @@ const config = {
   handle: "https.snows.rest",
   role: "casual person on the internet",
 
-  avatar: "https://discord.com/1453556642296627355",
+  avatar: "cat.png",
 
   bio: [
     "hi, im snow nice to meet you.",
