@@ -164,7 +164,7 @@ latestDiscordData = data;
 
   setActive("home");
 
-}
+
 
 // =========================
 // PAGE RENDERING
