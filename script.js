@@ -140,7 +140,7 @@ function initIntro() {
 
 function initNavigation() {
 
-  const tabs = document.querySelectorAll(".tab");
+  const tabs = document.querySelectorAll("nav.tab");
   const content = document.getElementById("content");
 
   if (!content) return;
