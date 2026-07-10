@@ -164,11 +164,6 @@ function initNavigation() {
 
       content.classList.remove("fade");
 
-      // Reload Discord card whenever Home is opened
-      if (tab === "home") {
-        loadLanyard();
-      }
-
     }, 150);
 
   }
