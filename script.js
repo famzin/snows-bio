@@ -357,10 +357,9 @@ ws.onmessage = (event) => {
   ws.onerror = (e) => console.error("Lanyard error:", e);
   ws.onclose = () => console.log("Lanyard disconnected");
 }
-
 function updateStatus(data) {
-console.log(data);
-  
+  console.log(data);
+
   const dot = document.querySelector(".status-dot");
   const statusText = document.getElementById("statusText");
   const activityText = document.getElementById("activityText");
@@ -369,38 +368,31 @@ console.log(data);
     dot.className = "status-dot " + data.discord_status;
   }
 
-const pretty = {
-  online: "Online",
-  idle: "Idle",
-  dnd: "Do Not Disturb",
-  offline: "Offline"
-};
+  const pretty = {
+    online: "Online",
+    idle: "Idle",
+    dnd: "Do Not Disturb",
+    offline: "Offline"
+  };
 
-statusText.textContent = pretty[data.discord_status] || data.discord_status;
+  if (statusText) {
+    statusText.textContent =
+      pretty[data.discord_status] || data.discord_status;
+  }
 
-const activities = data.activities || [];
-const activity = activities.find(a => a.type === 0);
+  const activities = data.activities || [];
+  const activity = activities.find(a => a.type === 0);
 
-if (activity) {
-  activityText.textContent = `🎮 ${activity.name}`;
-} else if (data.listening_to_spotify && data.spotify) {
-  activityText.textContent =
-    `🎵 ${data.spotify.song} — ${data.spotify.artist}`;
-} else {
-  activityText.textContent = "";
-}
-}
+  if (activityText) {
+    if (activity) {
+      activityText.textContent = `🎮 ${activity.name}`;
+    } else if (data.listening_to_spotify && data.spotify) {
+      activityText.textContent =
+        `🎵 ${data.spotify.song} — ${data.spotify.artist}`;
+    } else {
+      activityText.textContent = "";
+    }
+  }
 
   console.log("Discord:", data);
 }
-
-// =========================
-// START EVERYTHING
-// =========================
-
-window.addEventListener("load", () => {
-  initStars();
-  initIntro();
-  initNavigation();
-  loadLanyard();
-});
