@@ -138,19 +138,31 @@ function initIntro() {
 // NAVIGATION
 // =========================
 
-setTimeout(() => {
+function initNavigation() {
 
-  content.innerHTML = renderTab(tab);
+  const tabs = document.querySelectorAll(".tab");
+  const content = document.getElementById("content");
 
-  content.classList.remove("fade");
-latestDiscordData = data;
-  // Restore Discord status when returning to Home
-  if (tab === "home" && latestDiscordData) {
-    updateStatus(latestDiscordData);
+  if (!content) return;
+
+  function setActive(tab) {
+
+    content.classList.add("fade");
+
+    setTimeout(() => {
+
+      content.innerHTML = renderTab(tab);
+
+      content.classList.remove("fade");
+
+      // Restore Discord status when returning to Home
+      if (tab === "home" && latestDiscordData) {
+        updateStatus(latestDiscordData);
+      }
+
+    }, 150);
+
   }
-
-}, 150);
-  
 
   tabs.forEach(button => {
 
@@ -164,6 +176,7 @@ latestDiscordData = data;
 
   setActive("home");
 
+}
 
 
 // =========================
